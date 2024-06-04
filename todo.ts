@@ -11,6 +11,13 @@ let initCalled = false;
 
 let recordTodoCalled: ((ctx: TodoContext) => Promise<boolean>) | null = null;
 
+/**
+ *
+ * @param props
+ * @returns
+ *
+ * Initialize the todo library
+ */
 export function init(props: Init) {
   if (initCalled) {
     return;
@@ -61,7 +68,16 @@ export function init(props: Init) {
   };
 }
 
+/**
+ *
+ * @param cb
+ * @param context
+ *
+ * Create a todo, the callback is immediately invoked and a side effect is recorded
+ */
 export function todo(cb: () => void, context: TodoContext) {
+  cb();
+
   if (!initCalled) {
     throw new Error("init function not called");
   }
@@ -69,6 +85,4 @@ export function todo(cb: () => void, context: TodoContext) {
   if (typeof recordTodoCalled === "function") {
     recordTodoCalled(context);
   }
-
-  cb();
 }

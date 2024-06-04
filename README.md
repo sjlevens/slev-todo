@@ -12,9 +12,7 @@ Tired of those pesky TODO comments cluttering your code? We are too! `@slev/todo
 
 ### Installation
 
-```
-  npm install @slev/todo
-```
+Visit https://jsr.io/@slev/todo for instructions!
 
 ### Usage
 
