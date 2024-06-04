@@ -1,0 +1,5 @@
+{
+  "name": "@slev/todo",
+  "version": "0.1.0",
+  "exports": "./todo.ts"
+}
