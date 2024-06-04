@@ -69,8 +69,12 @@ function getRandomNumber() {
 
 Now, every time getRandomNumber is called and the todo block is reached, `@slev/todo` will
 
-Execute your TODO code.
-Send a POST request to your specified API endpoint (or call your mock function) with the TODO details and any additional context you provided.
+1. Execute your TODO code.
+2. Send a POST request to your specified API endpoint (or call your mock function) with the TODO details and any additional context you provided.
+
+### Embrace the Annoyance!
+
+`@slev/todo` is designed to be intentionally annoying. By encapsulating TODO code within the `todo` function and spamming your API/mock function, we aim to create a sense of urgency and encourage you to address those lingering TODOs head-on. The encapsultion will force you to want to remove the todo. Perfection!
 
 ### Pro Tips
 
@@ -86,7 +90,8 @@ Send a POST request to your specified API endpoint (or call your mock function) 
 
 We welcome contributions! If you have any ideas, bug fixes, or feature requests, please open an issue or submit a pull request.
 
-License
-This project is licensed under the MIT License.
+Happy TODO-ing!
 
-Happy TODO-nagging!
+# License
+
+This project is licensed under the MIT License.
