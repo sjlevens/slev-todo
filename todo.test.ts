@@ -103,3 +103,55 @@ Deno.test("todo url", () => {
 
   globalThis.fetch = originalFetch;
 });
+
+Deno.test("todo with due date, behaviour error", () => {
+  init({
+    url: "http://localhost:8080",
+  });
+
+  let called = false;
+
+  try {
+    todo(
+      () => {
+        called = true;
+      },
+      {
+        todo: "fixme",
+        dueDate: new Date("2021-01-01"),
+        dueDateBehaviour: "error",
+      }
+    );
+  } catch (error) {
+    assertEquals(error.message, "fixme is overdue");
+  }
+
+  assertEquals(called, false);
+});
+
+Deno.test("todo with due date, behaviour warn", () => {
+  init({});
+
+  let called = false;
+  const originalWarn = console.warn;
+  let consoleMessage;
+
+  console.warn = (msg) => {
+    consoleMessage = msg;
+  };
+
+  todo(
+    () => {
+      called = true;
+    },
+    {
+      todo: "fixme",
+      dueDate: new Date("2021-01-01"),
+      dueDateBehaviour: "warn",
+    }
+  );
+
+  assert(called);
+  assertEquals(consoleMessage, "fixme is overdue");
+  console.warn = originalWarn;
+});

@@ -9,6 +9,7 @@ Tired of those pesky TODO comments cluttering your code? We are too! `@slev/todo
 - Write your TODOs as actual code! That's right, no more hiding them in comments.
 - Spam your favorite API (or a mock function) every time a TODO is encountered during code execution.
 - Guilt-trip yourself (and your team) into actually completing those TODOs.
+- Literally throw an error if your todo's are past their due date.
 
 ### Installation
 
@@ -71,6 +72,28 @@ Now, every time getRandomNumber is called and the todo block is reached, `@slev/
 
 1. Execute your TODO code.
 2. Send a POST request to your specified API endpoint (or call your mock function) with the TODO details and any additional context you provided.
+
+### Due dates
+
+Set due dates for your todos! Better yet, cause the code to ERROR out if it is past the due date.
+
+**Hold yourself accountable.**
+
+```
+function calculateSum(a, b) {
+
+  let sum;
+  todo(() => {
+    sum = Math.max(a, b);
+  }, {
+    todo: "I think this might be wrong",
+    dueDate: new Date("2021-04-21"),
+    dueDateBehaviour: "error" // (defaults to ignore)
+  });
+
+  return sum;
+}
+```
 
 ### Embrace the Annoyance!
 

@@ -1,4 +1,8 @@
-type TodoContext = Record<string, unknown> & { todo: string };
+type TodoContext = Record<string, unknown> & {
+  todo: string;
+  dueDate?: Date;
+  dueDateBehaviour?: "ignore" | "warn" | "error"; // Default is "ignore"
+};
 
 type Init = {
   ENV?: string;
@@ -73,14 +77,26 @@ export function init(props: Init) {
  * @param cb
  * @param context
  *
- * Create a todo, the callback is immediately invoked and a side effect is recorded
+ * Create a todo, the callback is immediately invoked and a side effect is recorded.
+ * If the dueDate is set and the dueDateBehaviour is not "ignore", the dueDate is checked
+ * and if the dueDate is in the past, an error or warning is thrown.
  */
 export function todo(cb: () => void, context: TodoContext) {
-  cb();
-
   if (!initCalled) {
     throw new Error("init function not called");
   }
+
+  if (context.dueDate && context.dueDateBehaviour !== "ignore") {
+    if (Date.now() > context.dueDate.getTime()) {
+      if (context.dueDateBehaviour === "error") {
+        throw new Error(`${context.todo} is overdue`);
+      } else if (context.dueDateBehaviour === "warn") {
+        console.warn(`${context.todo} is overdue`);
+      }
+    }
+  }
+
+  cb();
 
   if (typeof recordTodoCalled === "function") {
     recordTodoCalled(context);
